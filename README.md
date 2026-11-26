@@ -1,44 +1,32 @@
-# Nayab's Smart Study Manager
+# Nayab Smart Study Manager — Streamlit Edition
 
-A static, GitHub Pages-ready study planner for the MAKAUT B.Tech CSE Semester V seven-day challenge.
+A Streamlit-native study dashboard for a 7-day MAKAUT B.Tech CSE Semester V study challenge.
 
 ## Files
-- `index.html` — dashboard structure
-- `styles.css` — responsive styling
-- `app.js` — timetable, tasks, timer, reports and local storage
+- `app.py` — Main Streamlit application
+- `requirements.txt` — Python dependencies
 
-## Publish on GitHub Pages
-1. Create a new GitHub repository (for example, `nayab-smart-study-manager`).
-2. Upload all three files to the repository root.
-3. Open **Settings → Pages**.
-4. Under **Build and deployment**, select **Deploy from a branch**.
-5. Select branch `main` and folder `/ (root)`, then Save.
-6. Wait for GitHub Pages to publish the site. Open the URL shown in the Pages settings.
-7. Open the site on your phone and use **Add to Home Screen** from your browser menu.
+## Run locally
+1. Install Python 3.10 or newer.
+2. Open a terminal in this folder.
+3. Run:
 
-## Features
-- Seven-day, six-hour-per-day timetable.
-- Subject progress calculated from completed tasks.
-- Add tasks, mark complete, undo and reschedule.
-- Pomodoro (25/5), deep work (50/10) and 60-minute timer.
-- Focus time is logged against the selected task when a focus session finishes.
-- Daily reports, PYQ counts, accuracy and weak-topic notes.
-- CSV report export.
-- Calendar reminder `.ics` download with three daily sessions and five-minute alarms.
-- Links to MAKAUT syllabus, PYQs, study materials and YouTube topic searches.
-- Responsive layout for desktop and mobile.
-- Data stored in the browser's local storage.
+```bash
+pip install -r requirements.txt
+streamlit run app.py
+```
 
-## Notifications and calendar
-Use **Add calendar reminders** and import the downloaded `.ics` file into Google Calendar. Check that the calendar's notifications are enabled on your Android device.
+## Deploy on Streamlit Community Cloud
+1. Create a GitHub repository.
+2. Upload `app.py` and `requirements.txt` to the repository root.
+3. Open Streamlit Community Cloud: https://share.streamlit.io/
+4. Connect your GitHub account and select the repository.
+5. Set the Main file path to `app.py`.
+6. Click Deploy.
 
-Browser notifications from the website itself require the site to be open and permission to be granted. A static GitHub Pages website cannot independently send scheduled push notifications after it has been closed. Google Calendar is the reliable background reminder option.
-
-## Data and privacy
-All tasks and reports are saved in the browser's local storage on the device where you use the site. They are not automatically synced between devices or uploaded to ChatGPT, Notion or Google Drive. Export your report periodically if you want a backup.
-
-## Syllabus note
-The timetable is an intensive starter plan based on the seven subjects supplied by the student. It is not a substitute for checking the current official MAKAUT syllabus and course-specific unit breakdown. Confirm all units and topics against the official syllabus and your college-issued course outline before treating the syllabus as fully covered.
-
-## Reset
-Use **Reset all data** at the bottom of the dashboard to clear local tasks and reports.
+## Notes
+- This is a Python/Streamlit application. Do not enter `index.html` as the main file.
+- The 7-day schedule is a starter revision plan, not a guarantee of exhaustive official unit coverage. Verify topics against your current MAKAUT syllabus and college notes.
+- YouTube resources are topic-specific search links rather than individually verified lecture videos.
+- The app stores progress in Streamlit session state. For durable storage across sessions/devices, a database or external storage integration would be needed.
+- The timer updates when the page reruns; use the Refresh countdown button to refresh the displayed remaining time.
