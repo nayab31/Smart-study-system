@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101827">
+  <meta name="description" content="Nayab's 7-day MAKAUT B.Tech CSE study planner, timer and progress tracker.">
+  <title>Nayab's Smart Study Manager</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">N</div>
+        <div><strong>Study Manager</strong><small>7-Day Challenge</small></div>
+      </div>
+      <nav aria-label="Main navigation">
+        <a class="nav-link active" href="#overview">▦ <span>Overview</span></a>
+        <a class="nav-link" href="#timetable">▤ <span>Timetable</span></a>
+        <a class="nav-link" href="#subjects">▣ <span>Subjects & syllabus</span></a>
+        <a class="nav-link" href="#tasks">✓ <span>Task tracker</span></a>
+        <a class="nav-link" href="#focus">◷ <span>Focus timer</span></a>
+        <a class="nav-link" href="#resources">▶ <span>Learning resources</span></a>
+        <a class="nav-link" href="#reports">▥ <span>Daily reports</span></a>
+      </nav>
+      <div class="sidebar-note">
+        <span class="live-dot"></span> Your progress saves on this device
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">MAKAUT · B.TECH CSE · SEMESTER V</p>
+          <h1>Make these 7 days count.</h1>
+          <p class="muted">A practical workspace for focused study, revision and PYQ practice.</p>
+        </div>
+        <div class="top-actions">
+          <button class="btn btn-secondary" id="exportCalendarBtn">＋ Add calendar reminders</button>
+          <button class="avatar" aria-label="Nayab profile">N</button>
+        </div>
+      </header>
+
+      <section class="hero-card" id="overview">
+        <div class="hero-copy">
+          <span class="pill pill-light">YOUR 7-DAY CHALLENGE</span>
+          <h2>42 hours. 7 subjects.<br>One focused plan.</h2>
+          <p>Track real work, not just planned work. Tick off a task only after you finish it.</p>
+          <div class="hero-meta">
+            <span>📅 <b id="challengeDates">26 Nov – 2 Dec 2026</b></span>
+            <span>⏱ <b>6 study hours / day</b></span>
+          </div>
+        </div>
+        <div class="hero-progress">
+          <div class="ring" id="overallRing"><div><strong id="overallPercent">0%</strong><small>completed</small></div></div>
+          <p><b id="completedCount">0</b> of <b id="totalCount">0</b> tasks completed</p>
+          <small id="remainingText">Let's begin with Day 1.</small>
+        </div>
+      </section>
+
+      <section class="stats-grid">
+        <article class="stat-card"><div class="stat-icon purple">◷</div><div><span>Study time logged</span><strong id="hoursLogged">0h 00m</strong><small>Target: 42 hours</small></div></article>
+        <article class="stat-card"><div class="stat-icon green">✓</div><div><span>Tasks completed</span><strong id="tasksDoneStat">0</strong><small id="tasksPendingStat">0 pending</small></div></article>
+        <article class="stat-card"><div class="stat-icon orange">▣</div><div><span>Subjects in progress</span><strong>7</strong><small>MAKAUT Semester V</small></div></article>
+        <article class="stat-card"><div class="stat-icon blue">◎</div><div><span>Challenge countdown</span><strong id="countdown">7 days</strong><small>Until 2 Dec 2026</small></div></article>
+      </section>
+
+      <section class="section-grid">
+        <div class="panel" id="timetable">
+          <div class="panel-heading"><div><p class="eyebrow">YOUR PLAN</p><h2>7-day timetable</h2></div><span class="tag">6 hrs / day</span></div>
+          <div class="day-tabs" id="dayTabs"></div>
+          <div class="day-summary" id="daySummary"></div>
+          <div class="schedule-list" id="scheduleList"></div>
+        </div>
+        <div class="panel" id="subjects">
+          <div class="panel-heading"><div><p class="eyebrow">SYLLABUS TRACKER</p><h2>Subject progress</h2></div><span class="tag">Live</span></div>
+          <div id="subjectProgress" class="subject-progress-list"></div>
+          <p class="small muted footnote">Progress is calculated from the study tasks you mark complete. Check your official syllabus for any course-specific unit variations.</p>
+        </div>
+      </section>
+
+      <section class="panel" id="tasks">
+        <div class="panel-heading wrap-heading">
+          <div><p class="eyebrow">DO THE WORK</p><h2>Daily task tracker</h2><p class="muted">Complete tasks to update your dashboard automatically.</p></div>
+          <button class="btn btn-primary" id="addTaskBtn">＋ Add a task</button>
+        </div>
+        <div class="filters">
+          <label>Day <select id="taskDayFilter"><option value="all">All days</option></select></label>
+          <label>Status <select id="taskStatusFilter"><option value="all">All tasks</option><option value="pending">Pending</option><option value="completed">Completed</option></select></label>
+          <span class="filter-spacer"></span>
+          <span class="small muted" id="visibleTaskCount"></span>
+        </div>
+        <div class="table-wrap">
+          <table><thead><tr><th>Task</th><th>Subject</th><th>Day</th><th>Target</th><th>Status</th><th>Action</th></tr></thead><tbody id="taskTable"></tbody></table>
+        </div>
+      </section>
+
+      <section class="section-grid">
+        <div class="panel" id="focus">
+          <div class="panel-heading"><div><p class="eyebrow">STAY FOCUSED</p><h2>Focus timer</h2></div><span class="tag">Task-linked</span></div>
+          <div class="timer-task">
+            <label for="timerTask">Current task</label>
+            <select id="timerTask"></select>
+          </div>
+          <div class="timer-modes">
+            <button class="mode-btn active" data-minutes="25" data-break="5">Pomodoro <small>25 / 5</small></button>
+            <button class="mode-btn" data-minutes="50" data-break="10">Deep work <small>50 / 10</small></button>
+            <button class="mode-btn" data-minutes="60" data-break="10">60 minutes <small>Custom target</small></button>
+          </div>
+          <div class="timer-face"><div class="timer-track"><strong id="timerDisplay">25:00</strong><span id="timerLabel">FOCUS SESSION</span></div></div>
+          <div class="timer-controls">
+            <button class="btn btn-primary" id="timerStart">Start</button>
+            <button class="btn btn-secondary" id="timerReset">Reset</button>
+            <button class="btn btn-secondary" id="timerBreak">Take break</button>
+          </div>
+          <p class="small muted center" id="timerMessage">Choose a task, then start your focus session.</p>
+        </div>
+        <div class="panel" id="resources">
+          <div class="panel-heading"><div><p class="eyebrow">STUDY SMART</p><h2>Learning resources</h2></div></div>
+          <div class="resource-card">
+            <div class="resource-icon">▶</div><div><b>YouTube topic search</b><p>Find Hindi / Hinglish explanations for your selected subject.</p></div>
+            <a id="youtubeLink" class="text-link" href="https://www.youtube.com/results?search_query=MAKAUT+BTech+CSE+semester+5" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+          <div class="resource-card">
+            <div class="resource-icon">▤</div><div><b>MAKAUT PYQ papers</b><p>Browse available CSE Semester V previous-year papers.</p></div>
+            <a href="https://www.makaut.online/pyqs/department/cse/semester/5" class="text-link" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+          <div class="resource-card">
+            <div class="resource-icon">▣</div><div><b>Official syllabus</b><p>Confirm unit names and topics against the university document.</p></div>
+            <a href="https://www.makautexam.net/aicte_details/Syllabus/CSE/AllSem23.pdf" class="text-link" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+          <div class="resource-card">
+            <div class="resource-icon">✎</div><div><b>Study notes & materials</b><p>Browse the Semester V CSE study-material collection.</p></div>
+            <a href="https://www.makaut.online/study-materials/department/cse/semester/5" class="text-link" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+          <div class="resource-actions"><button class="btn btn-secondary" id="pyqLogBtn">＋ Log PYQ practice</button><button class="btn btn-secondary" id="revisionLogBtn">＋ Log revision</button></div>
+        </div>
+      </section>
+
+      <section class="panel" id="reports">
+        <div class="panel-heading"><div><p class="eyebrow">REFLECT & IMPROVE</p><h2>Daily performance report</h2><p class="muted">Record what really happened and plan your recovery.</p></div><button class="btn btn-secondary" id="downloadReportBtn">Download report</button></div>
+        <div class="report-grid">
+          <label>Study date<select id="reportDay"></select></label>
+          <label>Actual study time (minutes)<input type="number" id="actualMinutes" min="0" max="1440" placeholder="e.g. 300"></label>
+          <label>PYQs solved<input type="number" id="pyqCount" min="0" placeholder="e.g. 10"></label>
+          <label>Accuracy (%)<input type="number" id="accuracy" min="0" max="100" placeholder="e.g. 75"></label>
+          <label class="full">Topics completed<textarea id="topicsDone" rows="2" placeholder="Write the topics you actually completed..."></textarea></label>
+          <label class="full">Weak topics / topics to revise<textarea id="weakTopics" rows="2" placeholder="What needs another look?"></textarea></label>
+        </div>
+        <div class="report-actions"><button class="btn btn-primary" id="saveReportBtn">Save daily report</button><span class="small muted" id="reportSaved"></span></div>
+        <div id="savedReports" class="saved-reports"></div>
+      </section>
+
+      <footer><span>Built for your MAKAUT Semester V challenge.</span><span>Progress stays in this browser · <button id="resetAllBtn" class="link-button">Reset all data</button></span></footer>
+    </main>
+  </div>
+
+  <dialog id="taskDialog">
+    <form method="dialog" id="taskForm">
+      <div class="dialog-head"><h3>Add a study task</h3><button class="icon-btn" value="cancel" aria-label="Close">×</button></div>
+      <label>Task name<input id="newTaskName" required maxlength="100" placeholder="e.g. Practise deadlock numericals"></label>
+      <label>Subject<select id="newTaskSubject"></select></label>
+      <label>Day<select id="newTaskDay"></select></label>
+      <label>Target time (minutes)<input id="newTaskMinutes" type="number" min="5" max="360" value="30" required></label>
+      <div class="dialog-actions"><button class="btn btn-secondary" value="cancel">Cancel</button><button class="btn btn-primary" id="saveTaskBtn" value="default">Add task</button></div>
+    </form>
+  </dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
